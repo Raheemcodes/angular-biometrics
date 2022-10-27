@@ -1,0 +1,41 @@
+<main class="main" [formGroup]="loginForm" (submit)="onSubmit()">
+  <form action="" class="form">
+    <h2 class="heading">Login!</h2>
+
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Username</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="username"
+        placeholder="Eg. Adex123"
+        pattern="^\w+$"
+      />
+      <mat-error
+        *ngIf="
+          loginForm.get('username').hasError('minlength') &&
+          !loginForm.get('username').hasError('required')
+        "
+      >
+        Please enter a username of minimum of 3 characters
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('username').hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      *ngIf="!loading"
+      mat-raised-button
+      [disabled]="loginForm.invalid"
+      color="primary"
+      class="btn"
+    >
+      <span>Login</span>
+
+      <img width="" src="./../../../assets/print.svg" alt="finger print" />
+    </button>
+
+    <app-loading-spinner *ngIf="loading" class="loader"></app-loading-spinner>
+  </form>
+</main>

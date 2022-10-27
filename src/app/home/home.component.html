@@ -1,0 +1,21 @@
+<main class="main">
+  <h1 *ngIf="user && support; else fallback">
+    Hey {{ user.username }}! I really appreciate you checking this out, it means
+    a lot to me. Thank you very much 😃
+
+    <p>
+      Note: Your information will only be stored temporarily to manage storage
+      space
+    </p>
+  </h1>
+
+  <ng-template #fallback>
+    <h1 *ngIf="support">
+      Hello! <a routerLink="/login">Login</a> to check out the biometric
+      authentication. Don't have an account? <a routerLink="/signup">signup</a>
+    </h1>
+    <h1 *ngIf="!support">
+      Sorry, your device doesn't support biometric authentication 😩
+    </h1>
+  </ng-template>
+</main>

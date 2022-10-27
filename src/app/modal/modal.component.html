@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="modal" #modal [ngClass]="{ error: !success }">
+    <div class="slide">
+      <img
+        *ngIf="!success"
+        class="icon"
+        src="./../../assets/error.svg"
+        alt="An error imge"
+      />
+      <img
+        *ngIf="success"
+        class="icon"
+        src="./../../assets/suceess.svg"
+        alt="A success imge"
+      />
+      <p>{{ message }}</p>
+    </div>
+
+    <button class="close-btn" aria-label="Close button" (click)="onClose()">
+      <img src="./../../assets/close-btn.svg" alt="A close button image" />
+    </button>
+  </div>
+</div>

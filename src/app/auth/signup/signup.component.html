@@ -1,0 +1,41 @@
+<main class="main" [formGroup]="signupForm" (submit)="onSubmit()">
+  <form action="" class="form">
+    <h2 class="heading">Signup!</h2>
+
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Username</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="username"
+        placeholder="Eg. Adex123"
+        pattern="^\w+$"
+      />
+      <mat-error
+        *ngIf="
+          signupForm.get('username').hasError('minlength') &&
+          !signupForm.get('username').hasError('required')
+        "
+      >
+        Please enter a username of minimum of 3 characters
+      </mat-error>
+      <mat-error *ngIf="signupForm.get('username').hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      *ngIf="!loading"
+      mat-raised-button
+      [disabled]="signupForm.invalid"
+      color="primary"
+      class="btn"
+    >
+      <span>Signup</span>
+
+      <img width="" src="./../../../assets/print.svg" alt="finger print" />
+    </button>
+
+    <app-loading-spinner *ngIf="loading" class="loader"></app-loading-spinner>
+  </form>
+</main>

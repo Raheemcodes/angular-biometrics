@@ -1,0 +1,10 @@
+<app-nav>
+  <router-outlet></router-outlet>
+</app-nav>
+
+<app-modal
+  *ngIf="success || error"
+  [message]="success || error"
+  [success]="!!success"
+  (closed)="onClose()"
+></app-modal>

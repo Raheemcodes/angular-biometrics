@@ -1,0 +1,29 @@
+@import './../../shared/_shared'
+
+:host
+  @include column-centered-start()
+
+h2
+  margin-bottom: 3rem
+
+.form
+  @include column-flex()
+  gap: 1rem
+  min-width: toRem(150)
+  max-width: toRem(500)
+  width: 100%
+
+.full-width
+  width: 100%
+
+.btn
+  align-self: flex-end
+  padding: 0.5rem 1rem
+
+  img
+    width: 2rem
+    margin-left: 1rem
+
+.loader
+  align-self: flex-end
+  width: 3.5rem
