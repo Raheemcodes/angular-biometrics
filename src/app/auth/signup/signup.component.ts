@@ -16,14 +16,14 @@ export class SignupComponent implements OnInit, OnDestroy {
   storeSub: Subscription;
   error: string;
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-  textFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(3),
-  ]);
+  // emailFormControl = new FormControl('', [
+  //   Validators.required,
+  //   Validators.email,
+  // ]);
+  // textFormControl = new FormControl('', [
+  //   Validators.required,
+  //   Validators.minLength(3),
+  // ]);
 
   constructor(private store: Store<AppState>) {}
 
