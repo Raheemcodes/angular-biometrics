@@ -2,7 +2,16 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, delay, map, of, switchMap, tap } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  delay,
+  map,
+  observable,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import {
   AuthResponseData,
   base64URLStringToBuffer,
@@ -13,6 +22,7 @@ import {
 } from 'src/app/shared/shared.model';
 import { environment } from 'src/environments/environment';
 import * as AuthAction from './auth.action';
+import { Action } from '@ngrx/store';
 
 const handleAuthentication = (
   userId: string,
@@ -123,17 +133,18 @@ export class AuthEffects {
           },
         };
 
-        return navigator.credentials
-          .create({ publicKey: credentials })
-          .then(
-            (resData: PubCredential) =>
-              new AuthAction.WebAuthRegVerifiation(resData)
-          )
-          .catch((err: DOMException) => {
-            return new AuthAction.AuthenticateFailure(
-              'An unknown error occured!'
-            );
-          });
+        return new Observable<Action>((observer) => {
+          navigator.credentials
+            .create({ publicKey: credentials })
+            .then((resData: PubCredential) => {
+              observer.next(new AuthAction.WebAuthRegVerifiation(resData));
+            })
+            .catch((err: DOMException) => {
+              observer.error(
+                new AuthAction.AuthenticateFailure('An unknown error occured!')
+              );
+            });
+        });
       })
     )
   );
@@ -213,18 +224,19 @@ export class AuthEffects {
           ],
         };
 
-        return navigator.credentials
-          .get({ publicKey: credentials })
-          .then(
-            (resData: PubRequestCredential) =>
-              new AuthAction.WebaauthnLoginVerification(resData)
-          )
-          .catch((err: DOMException) => {
-            console.log(err.message);
-            return new AuthAction.AuthenticateFailure(
-              'An unknown error occured!'
-            );
-          });
+        return new Observable<Action>((observer) => {
+          navigator.credentials
+            .get({ publicKey: credentials })
+            .then((resData: PubRequestCredential) => {
+              observer.next(new AuthAction.WebaauthnLoginVerification(resData));
+            })
+            .catch((err: DOMException) => {
+              console.log(err.message);
+              observer.error(
+                new AuthAction.AuthenticateFailure('An unknown error occured!')
+              );
+            });
+        });
       })
     )
   );
